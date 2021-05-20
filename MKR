@@ -1,0 +1,109 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Max
+{
+    class Program
+    {
+        public static int Max(int[] arr)
+        {
+            int max = arr[0];
+            for (int i = 1; i < arr.Length; ++i)
+            {
+                if (arr[i] > max) max = arr[i];
+            }
+            return max;
+        }
+        public static int Min(int[] arr)
+        {
+            int min = arr[0];
+            for (int i = 1; i < arr.Length; ++i)
+            {
+                if (arr[i] < min) min = arr[i];
+            }
+            return min;
+        }
+        public static double AVG(int[] arr)
+        {
+            double avg = 0;
+            for (int i = 0; i < arr.Length; ++i)
+            {
+                avg += arr[i];
+            }
+            avg = avg / arr.Length;
+            return avg;
+        }
+        public static double Sum(int[] arr)
+        {
+            double sum = 0;
+            for (int i = 0; i < arr.Length; ++i)
+            {
+                sum += arr[i];
+            }
+            return sum;
+        }
+        public static void ShowMatrix(int[][] matrix)
+        {
+            for (int i = 0; i < matrix.GetLength(0); ++i)
+            {
+                for (int j = 0; j < matrix[i].GetLength(0); ++j)
+                {
+                    Console.Write(matrix[i][j] + "\t");
+                }
+                Console.WriteLine();
+            }
+        }
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter the range of random numbers : ");
+            Console.Write("from : ");
+            int start = 0;
+            int.TryParse(Console.ReadLine(), out start);
+
+            Console.Write("to : ");
+            int end = 0;
+            int.TryParse(Console.ReadLine(), out end);
+
+            int[][] matrix = new int[5][];
+            Random random = new Random();
+            for (int i = 0; i < matrix.GetLength(0); ++i)
+            {
+                matrix[i] = new int[8];
+                for (int j = 0; j < matrix[i].GetLength(0); ++j)
+                {
+                    matrix[i][j] = random.Next(start, end);
+                }
+            }
+            ShowMatrix(matrix);
+
+            for (int i = 0; i < matrix.GetLength(0); ++i)
+            {
+                Console.WriteLine("Min value in #" + (i + 1) + " row : " + Min(matrix[i]));
+            }
+            int[] arr = new int [matrix.GetLength(0)];
+
+            Console.WriteLine();
+
+            for(int j = 0; j < matrix[0].GetLength(0); ++j)
+            {
+                for(int i = 0; i < matrix.GetLength(0); ++i)
+                {
+                    arr[i] = matrix[i][j];
+                }
+                Console.WriteLine("Max value in #" + (j + 1) + " column : " + Max(arr)); 
+            }
+
+
+            Console.WriteLine("\n\nChanged matrix : ");
+            int[] arr1 = new int[matrix[0].Length];
+            arr1 = matrix[0];
+            matrix[0] = matrix.Last();
+            matrix[matrix.GetLength(0) - 1] = arr1;
+
+            ShowMatrix(matrix);
+        }
+    }
+}
