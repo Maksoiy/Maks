@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+
+class ComplexNumber
+{
+private:
+    float real_part;
+    float i_part;
+public:
+    ComplexNumber(float real_part, float i_part)
+    {
+        this->real_part = real_part;
+        this->i_part = i_part;
+    }
+
+    void PrintShort()
+    {
+        printf("(%f ,%f)\n", real_part, i_part);
+    }
+
+    void PrintFull()
+    {
+        printf("%f + %f*sqrt(-1)\n", real_part, i_part);
+    }
+
+    static ComplexNumber* Add (ComplexNumber left, ComplexNumber right)
+    {
+        return new ComplexNumber(left.real_part + right.real_part, left.i_part + right.i_part);
+    }
+
+    static ComplexNumber* Sub(ComplexNumber left, ComplexNumber right)
+    {
+        return new ComplexNumber(left.real_part - right.real_part, left.i_part - right.i_part);
+    }
+};
+
+int main()
+{
+    ComplexNumber a(10,10);
+    ComplexNumber b(5, 5);
+
+    ComplexNumber* test = ComplexNumber::Add(a, b);
+    test->PrintFull();
+    delete test;
+    test = ComplexNumber::Sub(a, b);
+    test->PrintShort();
+    delete test;
+
+    _CrtDumpMemoryLeaks();
+    return 0;
+}
