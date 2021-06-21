@@ -1,0 +1,19 @@
+#include <iostream>
+#include <clocale>
+#include <cstring>
+using namespace std;
+
+double Persent(double a, double b);
+void main()
+{
+	setlocale(LC_CTYPE, "rus");
+	double x, y;
+	cout << "Введите 2 числа (от которого ищем процент и эталон): " << endl;
+	cin >> x >> y;
+	cout << Persent(x, y) << "%" << endl;
+}
+
+double Persent(double a, double b)
+{
+	return a / b * 100;
+}
