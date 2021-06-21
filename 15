@@ -1,0 +1,81 @@
+#include <iostream>
+#include <string>
+#include <windows.h>
+using namespace std;
+struct student {
+    string fio;
+    int group;
+    int scor[5];
+};
+
+
+void Sort(student* studs, int& len) {
+    for (int i = 0; i < len - 1; i++) {
+        for (int j = i + 1; j < len; j++) {
+            if (studs[i].group > studs[j].group) {
+                student buf = studs[i];
+                studs[i] = studs[j];
+                studs[j] = buf;
+            }
+        }
+    }
+}
+double avg(student st) {
+    double sum = 0;
+    for (int i = 0; i < 5; i++) {
+        sum += st.scor[i];
+    }
+    return sum / 5;
+}
+int main() {
+    setlocale(LC_ALL, "rus");
+    cout << "Введите количество студентов" << endl;
+    int n;
+    cin >> n;
+    student* st = new student[n];
+    for (int i = 0; i != n; i++) {
+        cout << "Введите ФИО" << endl;
+        cin >> st[i].fio;
+        cout << "Введите номер группы" << endl;
+        cin >> st[i].group;
+        cout << "Успеваемость" << endl;
+        int j = 0;
+        do {
+            cout << "Оценка" << endl;
+            cin >> st[i].scor[j];
+            j++;
+        } while (j != 5);
+        cout << endl;
+    }
+    cout << endl;
+    Sort(st, n);
+    // выводим студентов по возрастанию групп
+    for (int i = 0; i != n; i++) {
+
+        cout << st[i].fio << endl;
+        cout << st[i].group << endl;
+        for (int j = 0; j != 5; j++) {
+            cout << st[i].scor[j] << " ";
+        }
+        cout << endl;
+
+    }
+    cout << endl;
+    int sum = 0;
+    int ind;
+    int f = 0;
+    cout << "Студенты средний бал >4" << endl;
+    for (int i = 0; i != n; i++)
+        if (avg(st[i]) > 4) {
+            f++;
+            ind = i;
+            cout << st[ind].fio << endl;
+            cout << st[ind].group << endl;
+        }
+    if (f == 0) {
+        cout << "No" << endl;
+    }
+    delete[]st;
+    system("pause");
+    return 0;
+}
