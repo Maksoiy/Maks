@@ -1,0 +1,71 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp2
+{
+    class Program
+    {
+        static double sum = 0;
+        static void Main(string[] args)
+        {
+            
+
+            Console.Write("Введiть початкове значення Xmin: ");
+            string sxMin = Console.ReadLine();
+            double xMin = Double.Parse(sxMin);
+            Console.Write("Введiть кiнцеве значення Xmax: ");
+            string sxMax = Console.ReadLine();
+            double xMax = double.Parse(sxMax);
+            Console.Write("Введiть прирiст dX: ");
+            string sdx = Console.ReadLine();
+            double dx = double.Parse(sdx);
+            double x = xMin;
+            double y;
+
+            while (x <= xMax)
+            {
+                Dowork(x);
+                x += dx;
+            }
+            Console.WriteLine($"Sum : {sum}");
+
+            while (x <= xMax)
+            {
+                y = Math.Pow(x, 2);
+                Console.WriteLine("x = {0}\t\t y = {1}", x, y);
+                x += dx;
+
+
+
+
+            }
+            if (Math.Abs(x - xMax - dx) > 0.0001)
+            {
+                y = Math.Pow(xMax, 2);
+                Console.WriteLine("x = {0}\t\t y = {1}", xMax, y);
+            }
+
+            Console.ReadKey();
+
+        }
+
+        static void Dowork(double x)
+        {
+            double x2 = 3 * x;
+            double numerator = 56 + x + x2 + Math.Sin(x * x2);
+            double denominator = 5 * Math.Cos(Math.Pow(x2, 2));
+
+            double result = Math.Sqrt(numerator / denominator);
+
+            if (!double.IsNaN(result))
+            {
+                sum += result;
+            }
+
+            Console.WriteLine($"x : {x,-20}y : {result}");
+        }
+    }
+}
